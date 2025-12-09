@@ -53,12 +53,7 @@ class IntegralRegression(nn.Module):
         coords = torch.stack((x_coord, y_coord), dim=-1)
 
         if self.normalize:
-            # Divide by the maximal pixel index to keep coordinates in ``[0, 1]``.
-            scale = torch.tensor(
-                [max(width - 1, 1), max(height - 1, 1)],
-                device=heatmaps.device,
-                dtype=heatmaps.dtype,
-            )
+            scale = torch.tensor([width, height], device=heatmaps.device, dtype=heatmaps.dtype)
             coords = coords / scale
 
         return coords
