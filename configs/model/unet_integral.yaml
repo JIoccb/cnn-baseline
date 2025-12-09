@@ -1,5 +1,5 @@
 model_class: 'src.modules.integral_regression.UNetIntegralRegression'
-num_classes: &ncls 2
+num_classes: &ncls 1
 model_args:
   num_keypoints: *ncls
   unet_kwargs:
