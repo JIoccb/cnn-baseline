@@ -39,11 +39,12 @@ class IntegralRegression(nn.Module):
 
         batch_size, num_kpts, height, width = heatmaps.shape
         # Softmax over spatial dimensions to obtain probability maps.
-        probs = torch.softmax(heatmaps.view(batch_size, num_kpts, -1), dim=-1)
-        probs = probs.view(batch_size, num_kpts, height, width)
+        probs = torch.softmax(heatmaps.flatten(2), dim=-1).view(
+            batch_size, num_kpts, height, width
+        )
 
-        x_grid = torch.linspace(0, width - 1, width, device=heatmaps.device, dtype=heatmaps.dtype)
-        y_grid = torch.linspace(0, height - 1, height, device=heatmaps.device, dtype=heatmaps.dtype)
+        x_grid = torch.arange(width, device=heatmaps.device, dtype=heatmaps.dtype)
+        y_grid = torch.arange(height, device=heatmaps.device, dtype=heatmaps.dtype)
         x_grid = x_grid.view(1, 1, 1, width)
         y_grid = y_grid.view(1, 1, height, 1)
 
