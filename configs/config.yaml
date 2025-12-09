@@ -1,0 +1,26 @@
+defaults:
+  - model: model
+  - transforms: transforms
+
+checkpoints: /home/student03/work/Artyom/checkpoints
+work_dir: /home/student03/work/Artyom/work_dir
+out_dir: /home/student03/work/Artyom/out_dir
+data_path: /home/student03/work/datasets/demo_perspective_dataset
+real_path: #/home/student03/work/datasets/real-test
+
+project_name: artyom_perspective_cnn
+experiment_name: 'cnn+linear_demo_perspective_dataset'
+
+seed: 2025
+n_workers: 0
+accelerator: 'gpu'
+device: 0
+log_nsteps: 20
+
+batch_size: 128
+n_epochs: 100
+
+dataset:
+  train_size: 0.8
+  image_width: 640
+  image_height: 640
