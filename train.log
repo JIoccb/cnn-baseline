@@ -1,0 +1,50 @@
+[2025-12-07 09:28:49,579][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:28:49,582][root][INFO] - DS shape after filter: (0, 2)
+[2025-12-07 09:28:49,583][root][INFO] - Train dataset: 0
+[2025-12-07 09:28:49,583][root][INFO] - Valid dataset: 0
+[2025-12-07 09:28:49,583][root][INFO] - Test dataset: 0
+[2025-12-07 09:28:49,586][root][INFO] - Datasets successfully saved!
+[2025-12-07 09:31:02,177][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:31:02,180][root][INFO] - DS shape after filter: (0, 2)
+[2025-12-07 09:31:02,181][root][INFO] - Train dataset: 0
+[2025-12-07 09:31:02,181][root][INFO] - Valid dataset: 0
+[2025-12-07 09:31:02,181][root][INFO] - Test dataset: 0
+[2025-12-07 09:31:02,184][root][INFO] - Datasets successfully saved!
+[2025-12-07 09:32:14,042][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:32:14,054][root][INFO] - DS shape after filter: (0, 2)
+[2025-12-07 09:32:14,057][root][INFO] - Train dataset: 0
+[2025-12-07 09:32:14,057][root][INFO] - Valid dataset: 0
+[2025-12-07 09:32:14,057][root][INFO] - Test dataset: 0
+[2025-12-07 09:34:36,936][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:35:33,304][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:35:33,306][root][INFO] - Train dataset: 838
+[2025-12-07 09:35:33,306][root][INFO] - Valid dataset: 105
+[2025-12-07 09:35:33,306][root][INFO] - Test dataset: 105
+[2025-12-07 09:36:42,385][root][INFO] - Datasets successfully saved!
+[2025-12-07 09:44:47,798][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:45:06,068][root][INFO] - DS shape after filter: (0, 2)
+[2025-12-07 09:46:51,287][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:47:50,729][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:49:00,028][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:49:41,314][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:50:24,335][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:50:47,499][root][INFO] - DS shape after filter: (1, 2)
+[2025-12-07 09:52:06,661][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:54:57,479][root][INFO] - DS shape after filter: (1, 2)
+[2025-12-07 09:55:34,019][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 09:56:49,868][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 10:00:10,353][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 10:00:53,828][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 10:01:50,102][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 10:02:43,489][root][INFO] - DS shape after filter: (1048, 2)
+[2025-12-07 10:03:46,648][root][INFO] - Train dataset: 838
+[2025-12-07 10:03:46,649][root][INFO] - Valid dataset: 105
+[2025-12-07 10:03:46,650][root][INFO] - Test dataset: 105
+[2025-12-07 10:03:46,696][root][INFO] - Datasets successfully saved!
+[2025-12-07 10:10:00,672][root][INFO] - Raw ds shape: (1048, 2)
+[2025-12-07 10:10:52,810][root][INFO] - DS shape after filter: (1048, 2)
+[2025-12-07 10:10:52,811][root][INFO] - Train dataset: 838
+[2025-12-07 10:10:52,811][root][INFO] - Valid dataset: 105
+[2025-12-07 10:10:52,811][root][INFO] - Test dataset: 105
+[2025-12-07 10:10:52,823][root][INFO] - Datasets successfully saved!
+[2025-12-07 10:57:24,500][root][INFO] - Raw ds shape: (1048, 2)

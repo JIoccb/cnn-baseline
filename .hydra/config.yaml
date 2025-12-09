@@ -1,0 +1,59 @@
+model:
+  model_arch: Unet
+  weights: /media/bulat/Data2/ML/Models/ResNet/resnet18-5c106cde.pth
+  num_classes: 1
+  model_args:
+    encoder: resnet34
+    encoder_weights: imagenet
+    in_channels: 3
+    classes: 1
+  losses:
+  - name: bce
+    loss_fn: torch.nn.BCEWithLogitsLoss
+    weight: 0.3
+    loss_kwargs: {}
+  - name: dice
+    weight: 0.7
+    loss_fn: segmentation_models_pytorch.losses.DiceLoss
+    loss_kwargs:
+      mode: binary
+      from_logits: true
+  metrics_kwargs:
+    num_classes: 1
+    task: binary
+    average: macro
+    threshold: 0.7
+  optimizer: torch.optim.AdamW
+  optimizer_kwargs:
+    lr: 0.001
+    weight_decay: 0.0001
+  scheduler: torch.optim.lr_scheduler.ReduceLROnPlateau
+  scheduler_kwargs:
+    mode: min
+    factor: 0.1
+    patience: 5
+    threshold: 0.0001
+    threshold_mode: rel
+  checkpoint_callback:
+    monitor_mode: max
+    monitor_metric: val_iou
+    verbose: true
+model_type: unet
+checkpoints: /home/student03/work/Bulat/checkpoints
+work_dir: /home/student03/work/Bulat/work_dir
+out_dir: /home/student03/work/Bulat/out_dir
+data_path: /home/student03/work/datasets/demo_perspective_dataset
+real_path: /home/student03/work/datasets/real-test/annotations.csv
+project_name: segm-docs
+experiment_name: unet-001
+seed: 2025
+n_workers: 0
+accelerator: gpu
+device: 0
+log_nsteps: 20
+batch_size: 32
+n_epochs: 20
+dataset:
+  train_size: 0.8
+  image_width: 640
+  image_height: 640
