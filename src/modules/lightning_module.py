@@ -14,11 +14,16 @@ class SegmModule(pl.LightningModule):
         super().__init__()
         self.config = config
 
-        # Init model
-        Net = getattr(smp, self.config.model_arch)
-        self.model = Net(
-            **self.config.model_args
-        )
+        # Init model. If a fully-qualified ``model_class`` is provided, load it
+        # dynamically; otherwise fall back to the SMP architecture name.
+        if "model_class" in self.config:
+            ModelClass = load_object(self.config.model_class)
+            self.model = ModelClass(**self.config.model_args)
+        else:
+            Net = getattr(smp, self.config.model_arch)
+            self.model = Net(
+                **self.config.model_args
+            )
 
         # Set metrics
         metrics = get_metrics(**self.config.metrics_kwargs)
@@ -54,7 +59,8 @@ class SegmModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
-        loss = self.calculate_loss(preds, gt, 'train_')
+        pred_logits = self._extract_logits(preds)
+        loss = self.calculate_loss(pred_logits, gt, 'train_')
         self.log('train_loss', loss.item(), on_step=True, on_epoch=True, prog_bar=True)
         return loss
 
@@ -63,8 +69,9 @@ class SegmModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
-        loss = self.calculate_loss(preds, gt, 'val_')
-        metrics = self.val_metrics(preds, gt)
+        pred_logits = self._extract_logits(preds)
+        loss = self.calculate_loss(pred_logits, gt, 'val_')
+        metrics = self.val_metrics(pred_logits, gt)
         self.log('val_f1', metrics['val_f1'], on_step=False, on_epoch=True, prog_bar=True)
         self.log('val_iou', metrics['val_iou'], on_step=False, on_epoch=True, prog_bar=True)
         self.log('val_loss', loss.item(), on_step=False, on_epoch=True, prog_bar=True)
@@ -74,12 +81,13 @@ class SegmModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
-        self.test_metrics(preds, gt)
+        pred_logits = self._extract_logits(preds)
+        self.test_metrics(pred_logits, gt)
 
     def predict_step(self, batch, batch_idx):
         images, images_names, orig_size, infer_size = batch
         images = torch.stack(images)
-        preds = torch.sigmoid(self(images))
+        preds = torch.sigmoid(self._extract_logits(self(images)))
 
         return preds, images_names, orig_size, infer_size
 
@@ -107,3 +115,17 @@ class SegmModule(pl.LightningModule):
             self.log(f'{prefix}{_loss.name}_loss', loss.item())
         self.log(f'{prefix}total_loss', total_loss.item())
         return total_loss
+
+    @staticmethod
+    def _extract_logits(preds: tp.Union[torch.Tensor, tp.Tuple, tp.List, tp.Dict]) -> torch.Tensor:
+        """Handle models that return auxiliary outputs (e.g., coords).
+
+        For tuple/list outputs the first element is assumed to be the mask
+        logits. Dict outputs are expected to have ``'logits'`` key. Otherwise
+        the prediction is returned unchanged.
+        """
+        if isinstance(preds, (list, tuple)):
+            return preds[0]
+        if isinstance(preds, dict) and 'logits' in preds:
+            return preds['logits']
+        return preds
