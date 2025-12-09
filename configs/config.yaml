@@ -2,7 +2,7 @@ hydra:
   run:
     dir: '.'
 
-model_type: &mtype unet
+model_type: &mtype unet  # use `unet_integral` to enable keypoint integral regression
 
 defaults:
   - model: *mtype
