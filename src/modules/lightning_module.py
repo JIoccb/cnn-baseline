@@ -103,8 +103,12 @@ class DewrapModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
+
+        preds = preds.view(preds.size(0), -1)
+        gt = gt.view(preds.shape)
+
         loss = self.calculate_loss(preds, gt, 'train_')
-        self.log('val_loss', loss.item(), on_step=False, on_epoch=True, prog_bar=True)
+        self.log('train_loss', loss.item(), on_step=False, on_epoch=True, prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -112,6 +116,10 @@ class DewrapModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
+
+        preds = preds.view(preds.size(0), -1)
+        gt = gt.view(preds.shape)
+
         loss = self.calculate_loss(preds, gt, 'val_')
         metrics = self.val_metrics(preds, gt)
         self.log('val_mae', metrics['val_mae'], on_step=False, on_epoch=True, prog_bar=True)
@@ -122,6 +130,10 @@ class DewrapModule(pl.LightningModule):
         gt = torch.stack(gt)
         images = torch.stack(images)
         preds = self(images)
+
+        preds = preds.view(preds.size(0), -1)
+        gt = gt.view(preds.shape)
+
         self.test_metrics(preds, gt)
         # return preds, images_names, im_size
 
@@ -129,6 +141,8 @@ class DewrapModule(pl.LightningModule):
         images, images_names, orig_size, infer_size = batch
         images = torch.stack(images)
         preds = self(images)
+
+        preds = preds.view(preds.size(0), -1)
 
         return preds, images_names, orig_size, infer_size
 
