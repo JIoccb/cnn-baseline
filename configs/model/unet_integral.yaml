@@ -1,5 +1,4 @@
 model_class: 'src.modules.integral_regression.UNetIntegralRegression'
-# A single binary channel is expected by the current dataset and losses.
 num_classes: &ncls 1
 model_args:
   num_keypoints: *ncls
