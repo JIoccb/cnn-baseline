@@ -1,0 +1,27 @@
+model_arch: Unet
+weights: /media/bulat/Data2/ML/Models/ResNet/resnet18-5c106cde.pth
+model_args:
+  encoder: resnet18
+  encoder_weights: null
+  in_channels: 3
+  classes: 4
+losses:
+- name: mae
+  loss_fn: torch.nn.L1Loss
+  weight: 1.0
+  loss_kwargs:
+    reduction: mean
+optimizer: torch.optim.AdamW
+optimizer_kwargs:
+  lr: 0.0005
+  weight_decay: 0.0001
+scheduler: torch.optim.lr_scheduler.ReduceLROnPlateau
+scheduler_kwargs:
+  mode: min
+  factor: 0.1
+  patience: 5
+  threshold: 0.01
+checkpoint_callback:
+  monitor_mode: min
+  monitor_metric: val_mae
+  verbose: true

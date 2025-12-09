@@ -1,0 +1,19 @@
+model_args:
+  pretrained: true
+  num_keypoints: 1
+  num_classes: 5
+  weights: /media/bulat/SSD02/GPB/Sirius/DewrapDocuments/pretrained/keypointrcnn_resnet50_fpn_coco-fc266e95.pth
+optimizer: torch.optim.AdamW
+optimizer_kwargs:
+  lr: 0.0005
+  weight_decay: 0.0001
+scheduler: torch.optim.lr_scheduler.ReduceLROnPlateau
+scheduler_kwargs:
+  mode: min
+  factor: 0.1
+  patience: 5
+  threshold: 0.01
+checkpoint_callback:
+  monitor_mode: min
+  monitor_metric: val_kp_loss
+  verbose: true
